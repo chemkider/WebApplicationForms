@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "ViewForms";
+}
+<div class="container mt-0">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-5">Form Submissions</h1>
+            <table id="adminTable" class="table table-hover table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Submission ID</th>
+                        <th scope="col">Form Type</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile Number</th>
+                        <th scope="col">Submission Time</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+        <script>
+
+            function UpdateStatus(button, action) {
+                console.log('reached')
+                var submissionID = button.getAttribute("data-id");
+
+                $.ajax({
+                    url: "/Admin/UpdateStatus",
+                    type: "POST",
+                    data: {
+                        submissionID: submissionID,
+                        action: action
+                    },
+                    success: function () {
+
+                        //dataTable.ajax.reload();
+                    },
+                    error: function () {
+                        alert("An error occurred while updating the status.");
+                    }
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+
+
+
+                var table = document.getElementById("adminTable");
+                var dataTable = new DataTable(table, {
+                    ajax: {
+                        url: "/Admin/GetDataForAdmin",
+                        dataSrc: "data"
+                    },
+                    columns: [
+                        { data: "submissionID" },
+                        { data: "formID" },
+                        { data: "Name" },
+                        { data: "Title" },
+                        { data: "Email" },
+                        { data: "MobileNumber" },
+                        {
+                            data: "SubTime",
+                            render: function (data, type, row) {
+                                var x = row.Subtime.toLocaleString();
+                                //var x = new Date(data).toLocaleString();
+                                return x;
+                            }
+                        },
+
+                        {
+                            data: null,
+                            render: function (data, type, row) {
+                                return '<button class="btn btn-success acceptBtn" data-id="' + row.submissionID + '" data-action="accept" onclick="UpdateStatus(this, \'accept\')" ">Accept</button>' +
+                                    '<button class="btn btn-danger declineBtn"  data-id="' + row.submissionID + '" data-action="decline" onclick="UpdateStatus(this, \'decline\')">Decline</button>';
+                            }
+                        },
+                        { data: "reqStatus" }
+
+                    ]
+                });
+            });
+
+        </script>

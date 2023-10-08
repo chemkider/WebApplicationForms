@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FormDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="formData">
+          <Key>
+            <PropertyRef Name="SubmissionID" />
+          </Key>
+          <Property Name="SubmissionID" Type="int" Nullable="false" />
+          <Property Name="formID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="MobileNumber" Type="int" />
+          <Property Name="Decleration" Type="varchar" MaxLength="50" />
+          <Property Name="SubTime" Type="datetime" />
+          <Property Name="ReqStatus" Type="varchar" MaxLength="50" />
+          <Property Name="ReqType" Type="varchar" MaxLength="50" />
+          <Property Name="Form1" Type="varchar" MaxLength="50" />
+          <Property Name="Form2" Type="varchar" MaxLength="50" />
+          <Property Name="Form3" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="forms">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="int" Nullable="false" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FormAttribute" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="userid">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK__formData__formID__4D94879B">
+          <End Role="forms" Type="Self.forms" Multiplicity="0..1" />
+          <End Role="formData" Type="Self.formData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="forms">
+              <PropertyRef Name="FormID" />
+            </Principal>
+            <Dependent Role="formData">
+              <PropertyRef Name="formID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__formData__UserID__4E88ABD4">
+          <End Role="userid" Type="Self.userid" Multiplicity="0..1" />
+          <End Role="formData" Type="Self.formData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userid">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="formData">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FormDBModel1StoreContainer">
+          <EntitySet Name="formData" EntityType="Self.formData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="forms" EntityType="Self.forms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userid" EntityType="Self.userid" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__formData__formID__4D94879B" Association="Self.FK__formData__formID__4D94879B">
+            <End Role="forms" EntitySet="forms" />
+            <End Role="formData" EntitySet="formData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__formData__UserID__4E88ABD4" Association="Self.FK__formData__UserID__4E88ABD4">
+            <End Role="userid" EntitySet="userid" />
+            <End Role="formData" EntitySet="formData" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FormDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="formData">
+          <Key>
+            <PropertyRef Name="SubmissionID" />
+          </Key>
+          <Property Name="SubmissionID" Type="Int32" Nullable="false" />
+          <Property Name="formID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="Int32" />
+          <Property Name="Decleration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubTime" Type="DateTime" Precision="3" />
+          <Property Name="ReqStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReqType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Form1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Form2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Form3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="form" Relationship="Self.FK__formData__formID__4D94879B" FromRole="formData" ToRole="forms" />
+          <NavigationProperty Name="userid1" Relationship="Self.FK__formData__UserID__4E88ABD4" FromRole="formData" ToRole="userid" />
+        </EntityType>
+        <EntityType Name="form">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="Int32" Nullable="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FormAttribute" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="formDatas" Relationship="Self.FK__formData__formID__4D94879B" FromRole="forms" ToRole="formData" />
+        </EntityType>
+        <EntityType Name="userid">
+          <Key>
+            <PropertyRef Name="UserID1" />
+          </Key>
+          <Property Name="UserID1" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="formDatas" Relationship="Self.FK__formData__UserID__4E88ABD4" FromRole="userid" ToRole="formData" />
+        </EntityType>
+        <Association Name="FK__formData__formID__4D94879B">
+          <End Role="forms" Type="Self.form" Multiplicity="0..1" />
+          <End Role="formData" Type="Self.formData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="forms">
+              <PropertyRef Name="FormID" />
+            </Principal>
+            <Dependent Role="formData">
+              <PropertyRef Name="formID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__formData__UserID__4E88ABD4">
+          <End Role="userid" Type="Self.userid" Multiplicity="0..1" />
+          <End Role="formData" Type="Self.formData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userid">
+              <PropertyRef Name="UserID1" />
+            </Principal>
+            <Dependent Role="formData">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FormDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="formDatas" EntityType="Self.formData" />
+          <EntitySet Name="forms" EntityType="Self.form" />
+          <EntitySet Name="userids" EntityType="Self.userid" />
+          <AssociationSet Name="FK__formData__formID__4D94879B" Association="Self.FK__formData__formID__4D94879B">
+            <End Role="forms" EntitySet="forms" />
+            <End Role="formData" EntitySet="formDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__formData__UserID__4E88ABD4" Association="Self.FK__formData__UserID__4E88ABD4">
+            <End Role="userid" EntitySet="userids" />
+            <End Role="formData" EntitySet="formDatas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FormDBModel1StoreContainer" CdmEntityContainer="FormDBEntities1">
+          <EntitySetMapping Name="formDatas">
+            <EntityTypeMapping TypeName="FormDBModel1.formData">
+              <MappingFragment StoreEntitySet="formData">
+                <ScalarProperty Name="SubmissionID" ColumnName="SubmissionID" />
+                <ScalarProperty Name="formID" ColumnName="formID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Decleration" ColumnName="Decleration" />
+                <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+                <ScalarProperty Name="ReqStatus" ColumnName="ReqStatus" />
+                <ScalarProperty Name="ReqType" ColumnName="ReqType" />
+                <ScalarProperty Name="Form1" ColumnName="Form1" />
+                <ScalarProperty Name="Form2" ColumnName="Form2" />
+                <ScalarProperty Name="Form3" ColumnName="Form3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="forms">
+            <EntityTypeMapping TypeName="FormDBModel1.form">
+              <MappingFragment StoreEntitySet="forms">
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="FormAttribute" ColumnName="FormAttribute" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userids">
+            <EntityTypeMapping TypeName="FormDBModel1.userid">
+              <MappingFragment StoreEntitySet="userid">
+                <ScalarProperty Name="UserID1" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

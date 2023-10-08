@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <h1>Choose a Form Option</h1>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            @Html.ActionLink("Form Option 1", "form1","Form",new { }, new { @class = "btn btn-primary" })
+        </li>
+        <li class="list-group-item">
+            @Html.ActionLink("Form Option 2", "form2", "Form", new { }, new { @class = "btn btn-primary" })
+        </li>
+        <li class="list-group-item">
+            @Html.ActionLink("Form Option 3", "form3", "Form", new { }, new { @class = "btn btn-primary" })
+        </li>
+    </ul>
+</div>
